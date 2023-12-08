@@ -10,10 +10,10 @@ const userRouter = require("./router/userRouter");
 const inboxRouter = require("./router/inboxRouter");
 
 // Internal Imports
-// const {
-//   notFoundHandler,
-//   errorHandler,
-// } = require("./middlewares/common/errorHandler");
+const {
+  notFoundHandler,
+  errorHandler,
+} = require("./middlewares/common/errorHandler");
 
 const app = express();
 dotenv.config();
@@ -49,10 +49,10 @@ app.use("/users", userRouter);
 app.use("/inbox", inboxRouter);
 
 // 404 Not Found handling
-// app.use(notFoundHandler);
+app.use(notFoundHandler);
 
 // Common error handler
-// app.use(errorHandler);
+app.use(errorHandler);
 
 // Listening port
 app.listen(process.env.PORT, () => {
