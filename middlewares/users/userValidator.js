@@ -1,6 +1,8 @@
 // External Imports
-const { check } = require("express-validator");
-
+const { check, validationResult } = require("express-validator");
+const createError = require("http-errors");
+const path = require("path");
+const { unlink } = require("fs");
 // add Users
 const addUserValidator = [
   check("name")
@@ -17,12 +19,12 @@ const addUserValidator = [
       try {
         const user = await user.findOne({ email: value });
         if (user) {
-          throw createHttpError(
+          throw createError(
             "Email already in use, please provide another email address"
           );
         }
       } catch (err) {
-        throw createHttpError(err.message);
+        throw createError(err.message);
       }
     }),
   check("mobile")
@@ -32,10 +34,10 @@ const addUserValidator = [
       try {
         const user = await user.findOne({ mobile: value });
         if (user) {
-          throw createHttpError("Mobile already is in use");
+          throw createError("Mobile already is in use");
         }
       } catch (err) {
-        throw createHttpError(err.message);
+        throw createError(err.message);
       }
     }),
   check("password")
@@ -45,4 +47,28 @@ const addUserValidator = [
     ),
 ];
 
-module.exports = addUserValidator;
+const addUserValidationHandler = (req, res, next) => {
+  const errors = validationResult(req);
+  const mappedErrors = errors.mapped();
+  if (Object.keys(mappedErrors).length === 0) {
+    next();
+  } else {
+    // Remove uploaded files
+    if (req.files.length > 0) {
+      const { filename } = req.files[0];
+      unlink(
+        path.join(__dirname, `../../public/upload/avatars/${filename}`),
+        (err) => {
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
+    }
+    // Response the errors
+    res.status(500).json({
+      errors: mappedErrors,
+    });
+  }
+};
+module.exports = { addUserValidator, addUserValidationHandler };
