@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 // Internal Imports
-const { getLogin, login } = require("../controller/loginController");
+const { getLogin, login, logout } = require("../controller/loginController");
 const decorateHtmlResponse = require("../middlewares/common/decorateHtmlResponse");
 
 const page_title = "Login";
@@ -18,4 +18,6 @@ router.post(
   login
 );
 
+// Logout router
+router.delete("/", logout);
 module.exports = router;
