@@ -5,10 +5,17 @@ const router = express.Router();
 const { getLogin, login } = require("../controller/loginController");
 const decorateHtmlResponse = require("../middlewares/common/decorateHtmlResponse");
 
+const page_title = "Login";
 // login page
-router.get("/", decorateHtmlResponse("Login"), getLogin);
+router.get("/", decorateHtmlResponse(page_title), getLogin);
 
 // process login
-router.post("/", doLoginValidators, doLoginValidationHandler, login);
+router.post(
+  "/",
+  decorateHtmlResponse(page_title),
+  doLoginValidators,
+  doLoginValidationHandler,
+  login
+);
 
 module.exports = router;

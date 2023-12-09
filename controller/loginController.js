@@ -1,6 +1,8 @@
-// Internal Imports
+// External Imports
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
+// Internal Imports
 const User = require("../models/People");
 
 // Get Login Page
