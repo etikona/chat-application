@@ -1,7 +1,11 @@
 const express = require("express");
 
 const router = express.Router();
-const { getUsers, addUser } = require("../controller/userController");
+const {
+  getUsers,
+  addUser,
+  removeUser,
+} = require("../controller/userController");
 const decorateHtmlResponse = require("../middlewares/common/decorateHtmlResponse");
 const avatarUpload = require("../middlewares/users/avatarUpload");
 const {
@@ -17,4 +21,6 @@ router.post(
   addUserValidationHandler,
   addUser
 );
+// Remove User
+router.delete("/:id", removeUser);
 module.exports = router;
