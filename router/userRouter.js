@@ -22,5 +22,5 @@ router.post(
   addUser
 );
 // Remove User
-router.delete("/:id", removeUser);
+// router.delete("/:id", removeUser);
 module.exports = router;

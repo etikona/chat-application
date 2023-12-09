@@ -47,32 +47,32 @@ async function addUser(req, res, next) {
   }
 }
 // remove user
-async function removeUser(req, res, next) {
-  try {
-    const user = await user.findByIdAndDelete({
-      _id: req.params.id,
-    });
-    // Remove user avatar
-    if (user.avatar) {
-      unlink(path.join(__dirname, `../public/uploads/avatars/${user.avatar}`));
-    }
+// async function removeUser(req, res, next) {
+//   try {
+//     const user = await user.findByIdAndDelete({
+//       _id: req.params.id,
+//     });
+//     // Remove user avatar
+//     if (user.avatar) {
+//       unlink(path.join(__dirname, `../public/uploads/avatars/${user.avatar}`));
+//     }
 
-    res.status(200).json({
-      message: "User was removed successfully",
-    });
-  } catch (err) {
-    if (err) {
-      console.log(err);
-    }
-    res.status(500).json({
-      errors: {
-        common: {
-          msg: "Could not delete the user",
-        },
-      },
-    });
-  }
-}
+//     res.status(200).json({
+//       message: "User was removed successfully",
+//     });
+//   } catch (err) {
+//     if (err) {
+//       console.log(err);
+//     }
+//     res.status(500).json({
+//       errors: {
+//         common: {
+//           msg: "Could not delete the user",
+//         },
+//       },
+//     });
+//   }
+// }
 module.exports = {
   getUsers,
   addUser,
