@@ -31,6 +31,7 @@
       <div id="users-table">
         <table>
           <thead>
+            <% users.forEach(function(user) { %>
             <tr>
               <th>Name</th>
               <th>Email</th>
@@ -38,16 +39,21 @@
             </tr>
           </thead>
           <tbody id="users-table">
-            <tr id="">
+            <tr id="<$= user._id%>">
               <td class="name">
+                <% if(user.avatar) { %>
                 <img src="./images/user1.png" />
-                <span>User 1</span>
+                <% } else {%>
+                <img src="./images/nophoto.png" />
+                <%}%>
+                <span><%= user.name%></span>
               </td>
-              <td>email@email.com</td>
+              <td><%= user.email%></td>
               <td class="manage">
                 <img src="./images/trash.png" alt="Delete" />
               </td>
             </tr>
+            <% });%>
           </tbody>
         </table>
       </div>

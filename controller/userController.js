@@ -1,8 +1,15 @@
 // External Import
 const bcrypt = require("bcrypt");
 // Get Login Page
-function getUsers(req, res, next) {
-  res.render("users");
+async function getUsers(req, res, next) {
+  try {
+    const users = await users.find();
+    res.render("users", {
+      users: "users",
+    });
+  } catch (err) {
+    next(err);
+  }
 }
 
 // add user
