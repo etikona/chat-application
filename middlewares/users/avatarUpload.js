@@ -1,15 +1,17 @@
+const uploader = require("../../utilities/singleUploader");
+
 function avatarUpload(req, res, next) {
-  const uploader = uploader(
+  const upload = uploader(
     "avatars",
     ["image/jpeg", "image/jpg", "image/png"],
     1000000,
-    "Only .jpeg , .jpg, and .png format allowed"
+    "Only .jpg, jpeg or .png format allowed!"
   );
 
-  // Call the middleware functions
+  // call the middleware function
   upload.any()(req, res, (err) => {
     if (err) {
-      res.status.json({
+      res.status(500).json({
         errors: {
           avatar: {
             msg: err.message,
@@ -21,4 +23,5 @@ function avatarUpload(req, res, next) {
     }
   });
 }
+
 module.exports = avatarUpload;

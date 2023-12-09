@@ -71,4 +71,7 @@ const addUserValidationHandler = (req, res, next) => {
     });
   }
 };
-module.exports = { addUserValidator, addUserValidationHandler };
+module.exports = {
+  addUserValidator,
+  addUserValidationHandler,
+};
