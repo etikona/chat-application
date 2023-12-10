@@ -16,12 +16,15 @@ const {
 } = require("./middlewares/common/errorHandler");
 
 const app = express();
+const server = http.createServer(app);
 dotenv.config();
 
 // Socket.io
 const io = require("socket.io")(server);
 global.io = io;
 
+// set comment as app locals
+app.locals.moment = moment;
 // Database connection
 mongoose
   .connect(process.env.MONGO_CONNECTION_STRING, {
