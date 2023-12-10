@@ -18,6 +18,10 @@ const {
 const app = express();
 dotenv.config();
 
+// Socket.io
+const io = require("socket.io")(server);
+global.io = io;
+
 // Database connection
 mongoose
   .connect(process.env.MONGO_CONNECTION_STRING, {
